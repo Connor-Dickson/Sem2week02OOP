@@ -23,7 +23,7 @@
         /// <param name="input"></param>
         /// <param name="ans"></param>
         /// <returns></returns>
-        int FactorialRec(int input, int ans) {
+        public static int FactorialRec(int input, int ans) {
             if (input == 0) {
                 return ans;
             }
@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        bool FibCheck(int num) {
+        public static bool FibCheck(int num) {
             int ans = 0;
             int a = 1, b =1;
             
@@ -60,7 +60,7 @@
         /// <param name="num"></param>
         /// <param name="divisor"></param>
         /// <returns></returns>
-        bool PrimeCheckRec(int num, int divisor) {
+        public static bool PrimeCheckRec(int num, int divisor) {
             if (num == divisor) {
                 return true;
             }
