@@ -9,7 +9,7 @@ namespace ClassLibrary
     public class Teacher : Staff
     {
         public string Expertise { get; set; }
-        public Teacher(string fname, string sname, int yearofbirth, string expertise, string username) : base(fname, sname, yearofbirth, username)
+        public Teacher(string fname, string sname, int yearofbirth, string username, string expertise) : base(fname, sname, yearofbirth, username)
         {
             FName = fname;
             SName = sname;
