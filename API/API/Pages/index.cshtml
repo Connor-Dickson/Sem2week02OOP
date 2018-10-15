@@ -1,0 +1,81 @@
+﻿@page
+@model API.Pages.indexModel
+@{
+    ViewData["Title"] = "index";
+}
+<form id="ajax-contact">
+    <div class="field">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="field">
+        <label for="emailaddress">Email:</label>
+        <input type="email" id="emailaddress" name="emailaddress" required>
+    </div>
+
+    <div class="field">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+    </div>
+
+    <div class="field">
+        <button type="submit">Send</button>
+    </div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        var form = $("#ajax-contact");
+        var formMessages = $('#form-messages');
+        $(form).submit(function (event) {
+            // Stop the browser from submitting the form.
+            event.preventDefault();
+        
+
+        
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:51964/api/Contact",
+                data: JSON.stringify({
+                    name: $("#name").val(),
+                    emailaddress: $("#emailaddress").val(),
+                    message: $("#message").val()
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    alert("success");
+                }
+            })
+            .done(function (response) {
+                // Make sure that the formMessages div has the 'success' class.
+                $(formMessages).removeClass('error');
+                $(formMessages).addClass('success');
+
+                // Set the message text.
+                $(formMessages).text(response);
+
+                // Clear the form.
+                $('#name').val('');
+                $('#emailaddress').val('');
+                $('#message').val('');
+            })
+
+            .fail(function (data) {
+                // Make sure that the formMessages div has the 'error' class.
+                $(formMessages).removeClass('success');
+                $(formMessages).addClass('error');
+
+                // Set the message text.
+                if (data.responseText !== '') {
+                    $(formMessages).text(data.responseText);
+                } else {
+                    $(formMessages).text('Oops! An error occured and your message could not be sent.');
+                }
+            });
+        });
+    });
+</script>
